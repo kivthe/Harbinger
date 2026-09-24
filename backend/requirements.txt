@@ -1,0 +1,30 @@
+# ─── Web framework ────────────────────────────────────────
+fastapi>=0.115
+uvicorn[standard]>=0.32
+python-multipart>=0.0.20
+
+# ─── Database ─────────────────────────────────────────────
+sqlalchemy[asyncio]>=2.0.36
+asyncpg>=0.30
+alembic>=1.14
+
+# ─── Config / validation ──────────────────────────────────
+pydantic>=2.10
+pydantic-settings>=2.7
+
+# ─── Security ─────────────────────────────────────────────
+python-jose[cryptography]>=3.3
+passlib[bcrypt]>=1.7
+itsdangerous>=2.2
+
+# ─── Admin ────────────────────────────────────────────────
+sqladmin>=0.20
+
+# ─── Testing ──────────────────────────────────────────────
+pytest>=8.3
+pytest-asyncio>=0.25
+pytest-cov>=6.0
+httpx>=0.28
+
+# ─── Linting ──────────────────────────────────────────────
+ruff>=0.8
