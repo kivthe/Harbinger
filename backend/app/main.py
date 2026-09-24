@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.v1.router import router as v1_router
 from app.core.config import settings
 from app.db.session import engine
 
@@ -10,7 +11,7 @@ from app.db.session import engine
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     yield
-    engine.dispose()  # синхронный вызов, без await
+    engine.dispose()
 
 
 def create_app() -> FastAPI:
@@ -32,6 +33,8 @@ def create_app() -> FastAPI:
     @app.get("/health", tags=["system"])
     def health() -> dict[str, str]:
         return {"status": "ok"}
+
+    app.include_router(v1_router, prefix="/api")
 
     return app
 
