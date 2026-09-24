@@ -1,11 +1,13 @@
 from functools import lru_cache
-from typing import Literal
+from typing import Annotated, Literal
 
 from pydantic import Field, field_validator
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
+
 
 class Settings(BaseSettings):
-    """читаются из env / .env файла."""
+    """Application settings. Read from env / .env file."""
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
@@ -27,8 +29,8 @@ class Settings(BaseSettings):
     database_url: str
     test_database_url: str | None = None
 
-    # CORS
-    cors_origins: list[str] = ["http://localhost:5173"]
+    # CORS — comma-separated string in .env, or a list
+    cors_origins: Annotated[list[str], NoDecode] = ["http://localhost:5173"]
 
     # Admin bootstrap
     admin_username: str = "admin"

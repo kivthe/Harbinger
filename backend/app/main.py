@@ -9,10 +9,8 @@ from app.db.session import engine
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # startup
     yield
-    # shutdown
-    await engine.dispose()
+    engine.dispose()  # синхронный вызов, без await
 
 
 def create_app() -> FastAPI:
@@ -32,7 +30,7 @@ def create_app() -> FastAPI:
     )
 
     @app.get("/health", tags=["system"])
-    async def health() -> dict[str, str]:
+    def health() -> dict[str, str]:
         return {"status": "ok"}
 
     return app
