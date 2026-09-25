@@ -3,7 +3,6 @@
 Простой таск-трекер: FastAPI + React + PostgreSQL, JWT, SQLAdmin, soft-delete.
 
 [![Backend CI](https://github.com/kivthe/Harbinger/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/kivthe/Harbinger/actions/workflows/backend-ci.yml)
-[![Publish Docker image](https://github.com/kivthe/Harbinger/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/kivthe/Harbinger/actions/workflows/docker-publish.yml)
 
 ## Стек
 
