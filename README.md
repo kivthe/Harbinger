@@ -22,14 +22,49 @@
 
 ### Установка
 
-**Windows:**
-```powershell
-git clone git@github.com:kivthe/Harbinger.git
-cd Harbinger
-.\scripts\setup.ps1
+### Windows (CMD):
+```cmd
+sc query state= all | findstr /i postgres
+net start postgresql-x64-16
+
+psql -U postgres -h localhost
 ```
 
-**Linux / macOS:**
+В `psql`:
+
+```sql
+CREATE USER taskuser WITH PASSWORD 'taskpass';
+CREATE DATABASE harbinger OWNER taskuser;
+CREATE DATABASE harbinger_test OWNER taskuser;
+\q
+```
+
+```cmd
+psql -U taskuser -h localhost -d harbinger -c "SELECT 1"
+
+cd backend
+python -m venv .venv
+.venv\Scripts\activate.bat
+
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+
+copy .env.example .env
+python -c "import secrets; print(secrets.token_hex(32))"
+notepad .env
+
+alembic upgrade head
+python -m app.scripts.create_admin
+
+uvicorn app.main:app --reload
+```
+
+Открыть: http://localhost:8000/docs
+
+Остановить: `Ctrl+C`
+---
+
+### Linux / macOS:
 ```bash
 git clone git@github.com:kivthe/Harbinger.git
 cd Harbinger
