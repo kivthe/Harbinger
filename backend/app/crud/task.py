@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session
 
-from app.models.task import Task
+from app.models.task import Task, TaskStatus
 from app.schemas.task import TaskCreate, TaskFilter, TaskUpdate
 
 
@@ -34,10 +34,11 @@ def list_tasks(
     if owner_id is not None:
         stmt = stmt.where(Task.owner_id == owner_id)
 
-    if not filters.include_deleted:
-        stmt = stmt.where(Task.deleted_at.is_(None))
-    else:
+    if filters.only_deleted:
         stmt = stmt.where(Task.deleted_at.is_not(None))
+    elif not filters.include_deleted:
+        stmt = stmt.where(Task.deleted_at.is_(None))
+    # include_deleted=True и not only_deleted → не фильтруем по deleted_at
 
     if filters.status is not None:
         stmt = stmt.where(Task.status == filters.status)
@@ -60,14 +61,15 @@ def count_tasks(
     *,
     owner_id: int | None = None,
     include_deleted: bool = False,
+    only_deleted: bool = False,
 ) -> int:
     stmt = select(func.count()).select_from(Task)
     if owner_id is not None:
         stmt = stmt.where(Task.owner_id == owner_id)
-    if not include_deleted:
-        stmt = stmt.where(Task.deleted_at.is_(None))
-    else:
+    if only_deleted:
         stmt = stmt.where(Task.deleted_at.is_not(None))
+    elif not include_deleted:
+        stmt = stmt.where(Task.deleted_at.is_(None))
     return db.scalar(stmt) or 0
 
 
@@ -95,7 +97,7 @@ def update(db: Session, task: Task, data: TaskUpdate) -> Task:
     return task
 
 
-def update_status(db: Session, task: Task, new_status) -> Task:
+def update_status(db: Session, task: Task, new_status: TaskStatus) -> Task:
     task.status = new_status
     db.commit()
     db.refresh(task)
@@ -103,9 +105,6 @@ def update_status(db: Session, task: Task, new_status) -> Task:
 
 
 def toggle_done(db: Session, task: Task) -> Task:
-    """Переключает done ↔ todo."""
-    from app.models.task import TaskStatus
-
     task.status = TaskStatus.TODO if task.status == TaskStatus.DONE else TaskStatus.DONE
     db.commit()
     db.refresh(task)
@@ -134,7 +133,6 @@ def hard_delete(db: Session, task: Task) -> None:
 
 
 def clear_trash(db: Session, owner_id: int | None = None) -> int:
-    """Удаляет все задачи в корзине. Возвращает число удалённых."""
     stmt = select(Task).where(Task.deleted_at.is_not(None))
     if owner_id is not None:
         stmt = stmt.where(Task.owner_id == owner_id)

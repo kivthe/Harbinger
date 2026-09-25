@@ -34,13 +34,25 @@ class Task(TimestampMixin, Base):
     description: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     status: Mapped[TaskStatus] = mapped_column(
-        SAEnum(TaskStatus, native_enum=False, length=32, validate_strings=True),
+        SAEnum(
+            TaskStatus,
+            native_enum=False,
+            length=32,
+            validate_strings=True,
+            values_callable=lambda enum_cls: [e.value for e in enum_cls],
+        ),
         default=TaskStatus.TODO,
         nullable=False,
         index=True,
     )
     priority: Mapped[TaskPriority] = mapped_column(
-        SAEnum(TaskPriority, native_enum=False, length=32, validate_strings=True),
+        SAEnum(
+            TaskPriority,
+            native_enum=False,
+            length=32,
+            validate_strings=True,
+            values_callable=lambda enum_cls: [e.value for e in enum_cls],
+        ),
         default=TaskPriority.MEDIUM,
         nullable=False,
         index=True,
@@ -56,7 +68,6 @@ class Task(TimestampMixin, Base):
     )
     owner: Mapped[User] = relationship("User", back_populates="tasks")
 
-    # Soft delete
     deleted_at: Mapped[datetime | None] = mapped_column(
         DateTime(timezone=True), nullable=True, index=True
     )

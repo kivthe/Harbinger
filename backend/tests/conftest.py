@@ -11,6 +11,7 @@ from app.crud import user as crud_user
 from app.db.base import Base
 from app.db.session import get_db
 from app.main import app
+from app.models.user import User, UserRole
 from app.schemas.user import UserCreate
 
 
@@ -43,18 +44,25 @@ def db_session(test_engine: Engine) -> Generator[Session, None, None]:
 
 
 @pytest.fixture
-def client(db_session: Session) -> Generator[TestClient, None, None]:
+def _override_db(db_session: Session) -> Generator[None, None, None]:
+    """Общий override get_db — работает на уровне приложения."""
+
     def override_get_db():
         yield db_session
 
     app.dependency_overrides[get_db] = override_get_db
-    with TestClient(app) as c:
-        yield c
+    yield
     app.dependency_overrides.clear()
 
 
 @pytest.fixture
-def test_user(db_session: Session):
+def client(_override_db) -> Generator[TestClient, None, None]:
+    with TestClient(app) as c:
+        yield c
+
+
+@pytest.fixture
+def test_user(db_session: Session) -> User:
     return crud_user.create(
         db_session,
         UserCreate(username="test_user", password="test-password-123"),
@@ -62,10 +70,35 @@ def test_user(db_session: Session):
 
 
 @pytest.fixture
-def auth_client(client: TestClient, test_user) -> TestClient:
-    response = client.post(
-        "/api/v1/auth/login",
-        json={"username": "test_user", "password": "test-password-123"},
+def auth_client(
+    _override_db, test_user: User
+) -> Generator[TestClient, None, None]:
+    with TestClient(app) as c:
+        r = c.post(
+            "/api/v1/auth/login",
+            json={"username": "test_user", "password": "test-password-123"},
+        )
+        assert r.status_code == 200, r.text
+        yield c
+
+
+@pytest.fixture
+def admin_user(db_session: Session) -> User:
+    return crud_user.create(
+        db_session,
+        UserCreate(username="admin_user", password="admin-password-123"),
+        role=UserRole.ADMIN,
     )
-    assert response.status_code == 200, response.text
-    return client
+
+
+@pytest.fixture
+def admin_client(
+    _override_db, admin_user: User
+) -> Generator[TestClient, None, None]:
+    with TestClient(app) as c:
+        r = c.post(
+            "/api/v1/auth/login",
+            json={"username": "admin_user", "password": "admin-password-123"},
+        )
+        assert r.status_code == 200, r.text
+        yield c

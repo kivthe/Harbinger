@@ -17,6 +17,7 @@ class TaskCreate(TaskBase):
 
 
 class TaskUpdate(BaseModel):
+    """Все поля опциональны — PATCH-семантика."""
 
     title: str | None = Field(default=None, min_length=1, max_length=200)
     description: str | None = Field(default=None, max_length=5000)
@@ -25,6 +26,7 @@ class TaskUpdate(BaseModel):
 
 
 class TaskStatusUpdate(BaseModel):
+    """Для drag&drop и чекбокса."""
 
     status: TaskStatus
 
@@ -41,11 +43,10 @@ class TaskRead(TaskBase):
 
 
 class TaskFilter(BaseModel):
-    """Фильтры для списка задач."""
-
     status: TaskStatus | None = None
     priority: TaskPriority | None = None
     q: str | None = Field(default=None, max_length=200)
     include_deleted: bool = False
+    only_deleted: bool = False
     limit: int = Field(default=100, ge=1, le=500)
     offset: int = Field(default=0, ge=0)
