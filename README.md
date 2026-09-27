@@ -148,6 +148,28 @@ npm run dev
 | Вход |
 |---|
 | ![Login](docs/images/screenshot1.png) |
+| Главная страница |
+|---|
+| ![Login](docs/images/screenshot2.png) |
+| Создание задачи |
+|---|
+| ![Login](docs/images/screenshot3.png) |
+| Просмотр задач |
+|---|
+| ![Login](docs/images/screenshot4.png) |
+| Редактирование задач |
+|---|
+| ![Login](docs/images/screenshot5.png) |
+| Управление корзиной |
+|---|
+| ![Login](docs/images/screenshot6.png) |
+| Музыкальный проигрыватель |
+|---|
+| ![Login](docs/images/screenshot6.png) |
+| Панель администратора |
+|---|
+| ![Login](docs/images/screenshot6.png) |
+
 ## API
 
 Префикс: `/api/v1`
