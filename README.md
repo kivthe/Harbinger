@@ -49,7 +49,7 @@ Harbinger - это такс-трекер с повозможность созд�
 ```cmd
 copy .env.example .env
 ```
-**Linux**
+**Linux:**
 ```bash
 cp .env.example .env
 ```
@@ -59,7 +59,7 @@ docker compose up --build
 ```
 
 ### Windows (CMD):
-**Бэкенд**
+**Бэкенд:**
 ```cmd
 net start postgresql-x64-16
 psql -U postgres -h localhost
@@ -89,22 +89,33 @@ python -m app.scripts.create_admin
 uvicorn app.main:app --reload
 ```
 ---
+**Фронтенд:**
+```cmd
+cd frontend
+npm install
+npm run dev
+```
+---
 ### Linux / macOS:
+**Бэкенд:**
 ```bash
 sudo systemctl start postgresql
 sudo -u postgres psql
-
+```
+```bash
 CREATE USER taskuser WITH PASSWORD 'taskpass';
 CREATE DATABASE harbinger OWNER taskuser;
 CREATE DATABASE harbinger_test OWNER taskuser;
 \q
-
+```
+```bash
 psql -U taskuser -h localhost -d harbinger -c "SELECT 1"
 
 cd backend
 python3 -m venv .venv
 source .venv/bin/activate
-
+```
+```bash
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 
@@ -115,17 +126,25 @@ python -m app.scripts.create_admin
 
 uvicorn app.main:app --reload
 ```
-
-### Запуск через Docker:
+---
+**Фронтенд:**
 ```bash
-docker compose up --build
+cd frontend
+npm install
+npm run dev
 ```
+---
+## Использование
+Проверка фронтенда:
+- Главная страница: http://localhost:5173
 
 Проверка бэкенда:
+- Swagger:  http://localhost:8000/docs
+- SQLAdmin: http://localhost:8000/admin (Нужна предварительная авторизация через Swagger)
+- Health:   http://localhost:8000/health
 
-- Swagger: http://localhost:8000/docs
-- SQLAdmin: http://localhost:8000/admin
-- Health: http://localhost:8000/health
+
+
 
 ## API
 
