@@ -1,3 +1,29 @@
+export type UserRole = 'user' | 'admin';
+
+export interface User {
+  id: number;
+  username: string;
+  role: UserRole;
+  is_active: boolean;
+  created_at: string;
+}
+
+export interface LoginRequest {
+  username: string;
+  password: string;
+}
+
+export interface RegisterRequest {
+  username: string;
+  password: string;
+}
+
+export interface ApiError {
+  detail: string;
+}
+
+// ─── Tasks ────────────────────────────────────────────────
+
 export type TaskStatus = 'todo' | 'in_progress' | 'done';
 export type TaskPriority = 'low' | 'medium' | 'high';
 

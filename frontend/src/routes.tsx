@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { AdminRoute } from './components/auth/AdminRoute';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { AppLayout } from './components/layout/AppLayout';
+import { AuthLayout } from './components/layout/AuthLayout';
 import { NotFound } from './components/common/NotFound';
 
 import { LoginPage } from './pages/LoginPage';
@@ -16,9 +17,11 @@ import { AdminTasksPage } from './pages/AdminTasksPage';
 export default function AppRoutes() {
   return (
     <Routes>
-      {/* Public */}
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
+      {/* Public — с плеером, но без основного хедера */}
+      <Route element={<AuthLayout />}>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+      </Route>
 
       {/* Protected (требуется логин) */}
       <Route element={<ProtectedRoute />}>

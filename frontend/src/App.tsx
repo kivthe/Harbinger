@@ -1,5 +1,6 @@
 import AppRoutes from './routes';
 import { useMe } from './hooks/useAuth';
+import { BackgroundMusic } from './components/player/BackgroundMusic';
 
 export default function App() {
   const { isLoading } = useMe();
@@ -12,5 +13,10 @@ export default function App() {
     );
   }
 
-  return <AppRoutes />;
+  return (
+    <>
+      <BackgroundMusic />
+      <AppRoutes />
+    </>
+  );
 }

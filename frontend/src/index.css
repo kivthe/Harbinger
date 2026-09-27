@@ -19,7 +19,7 @@ body {
   color: #111827;
 }
 
-/* Анимация «переката» цифры таймера */
+/* ─── Анимация цифр таймера ─────────────────────────────── */
 @keyframes digit-flip {
   0% {
     transform: translateY(-100%);
@@ -36,7 +36,6 @@ body {
   animation: digit-flip 300ms ease-out;
 }
 
-/* Пульсация для «просрочено» */
 @keyframes pulse-soft {
   0%, 100% {
     opacity: 1;
@@ -48,4 +47,52 @@ body {
 
 .pulse-soft {
   animation: pulse-soft 2s ease-in-out infinite;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Анимация винилового диска ─────────────────────────── */
+@keyframes vinyl-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.vinyl-spin {
+  animation: vinyl-rotate 7s linear infinite;
+}
+
+.vinyl-paused {
+  animation: vinyl-rotate 7s linear infinite;
+  animation-play-state: paused;
+}
+
+/* ─── Marquee для длинных названий треков ───────────────── */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee-container:hover .marquee-track {
+  animation: marquee 8s linear infinite;
+}
+
+.marquee-track {
+  display: inline-flex;
+  white-space: nowrap;
+  will-change: transform;
 }

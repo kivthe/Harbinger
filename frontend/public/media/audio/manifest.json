@@ -1,0 +1,76 @@
+{
+  "tracks": [
+    {
+      "id": "ambient-1",
+      "title": "The Inn - Darkest Dungeon II OST",
+      "artist": "Stuart Chatwood",
+      "file": "The Inn.mp3",
+      "duration": 352
+    },
+    {
+      "id": "ambient-2",
+      "title": "The Butcher's Circus Combat - Darkest Dungeon OST",
+      "artist": "Stuart Chatwood",
+      "file": "The Butcher's Circus Combat.mp3",
+      "duration": 590
+    },
+
+
+
+    {
+      "id": "ambient-3",
+      "title": "A Story You Won't Believe - The Witcher 3: Wild Hunt OST",
+      "artist": "CD Projekt RED",
+      "file": "A Story You Won't Believe.mp3",
+      "duration": 97
+    },
+    {
+      "id": "ambient-4",
+      "title": "Drink Up, There's More! - The Witcher 3: Wild Hunt OST",
+      "artist": "CD Projekt RED",
+      "file": "Drink Up, There's More!.mp3",
+      "duration": 96
+    },
+    {
+      "id": "ambient-5",
+      "title": "The Nightingale - The Witcher 3: Wild Hunt OST",
+      "artist": "CD Projekt RED",
+      "file": "The Nightingale.mp3",
+      "duration": 99
+    },
+    {
+      "id": "ambient-6",
+      "title": "The Vagabond - The Witcher 3: Wild Hunt OST",
+      "artist": "CD Projekt RED",
+      "file": "The Vagabond.mp3",
+      "duration": 167
+    },
+    {
+      "id": "ambient-7",
+      "title": "Survivor Lobby - Dead By Daylight UST",
+      "artist": "Behaviour Interactive",
+      "file": "Survivor Lobby.mp3",
+      "duration": 60
+    },
+
+
+
+    {
+      "id": "ambient-8",
+      "title": "Welcome To Eugenes - Look Outside OST",
+      "artist": "Eric Shumaker, Francis Coulombe",
+      "file": "WelcomeToEugenes.ogg",
+      "duration": 30
+    },
+
+
+
+    {
+      "id": "ambient-9",
+      "title": "Luna",
+      "artist": "Sun Project",
+      "file": "Sun Project - Luna.mp3",
+      "duration": 379
+    }
+  ]
+}
