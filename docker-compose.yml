@@ -1,13 +1,12 @@
 services:
   db:
-    image: postgres:16
+    image: postgres:16-alpine
     container_name: harbinger-db
+    restart: unless-stopped
     environment:
       POSTGRES_USER: taskuser
       POSTGRES_PASSWORD: taskpass
       POSTGRES_DB: harbinger
-    ports:
-      - "5432:5432"
     volumes:
       - harbinger_pg:/var/lib/postgresql/data
     healthcheck:
@@ -15,30 +14,51 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    # Порт наружу НЕ публикуем — БД доступна только внутри docker-сети.
+    # Если хочешь подключиться с хоста через psql — раскомментируй:
+    # ports:
+    #   - "5432:5432"
 
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: ghcr.io/kivthe/harbinger-backend:latest
+    # ── Для локальной разработки: раскомментируй build, закомментируй image ──
+    # build:
+    #   context: ./backend
+    #   dockerfile: Dockerfile
     container_name: harbinger-backend
+    restart: unless-stopped
     depends_on:
       db:
         condition: service_healthy
     environment:
-      DATABASE_URL: postgresql+psycopg://taskuser:taskpass@db:5432/harbinger
-      TEST_DATABASE_URL: postgresql+psycopg://taskuser:taskpass@db:5432/harbinger_test
-      SECRET_KEY: local-dev-secret-key-change-me-in-production
-      ENVIRONMENT: development
+      APP_NAME: Harbinger
+      ENVIRONMENT: production
       DEBUG: "false"
-      CORS_ORIGINS: http://localhost:5173
-      ADMIN_USERNAME: admin
-      ADMIN_PASSWORD: admin-strong-password-123
-    ports:
-      - "8000:8000"
+      SECRET_KEY: ${SECRET_KEY:-change-me-in-production-min-32-chars}
+      ACCESS_TOKEN_EXPIRE_MINUTES: "15"
+      REFRESH_TOKEN_EXPIRE_DAYS: "7"
+      DATABASE_URL: postgresql+psycopg://taskuser:taskpass@db:5432/harbinger
+      TEST_DATABASE_URL: postgresql+psycopg://taskuser:taskpass@db:5432/harbinger
+      CORS_ORIGINS: http://localhost
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-change-me-strong-password-123}
     command: >
       sh -c "alembic upgrade head &&
              python -m app.scripts.create_admin &&
-             uvicorn app.main:app --host 0.0.0.0 --port 8000"
+             uvicorn app.main:app --host 0.0.0.0 --port 8000 --proxy-headers --forwarded-allow-ips='*'"
+
+  frontend:
+    image: ghcr.io/kivthe/harbinger-frontend:latest
+    container_name: harbinger-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    environment:
+      # nginx использует внутреннее имя сервиса "backend" для проксирования
+      # Переменная не считывается nginx'ом напрямую — она здесь для справки
+      BACKEND_URL: http://backend:8000
 
 volumes:
   harbinger_pg:
