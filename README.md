@@ -205,51 +205,90 @@ npm run dev
 
 ```
 Harbinger/
-├── backend/
+├── backend/                    # FastAPI
 │   ├── app/
-│   │   ├── api/v1/         # JSON API
-│   │   ├── admin/          # SQLAdmin
-│   │   ├── core/           # config, security, deps
-│   │   ├── db/             # engine, session
-│   │   ├── models/         # SQLAlchemy
-│   │   ├── schemas/        # Pydantic
-│   │   ├── crud/           # доступ к БД
-│   │   └── scripts/        # bootstrap
-│   ├── alembic/            # миграции
-│   └── tests/              # pytest
-├── frontend/               # React (в разработке)
-├── scripts/                # setup-скрипты
-└── docker-compose.yml
+│   │   ├── api/v1/             # JSON API
+│   │   ├── admin/              # SQLAdmin
+│   │   ├── core/               # config, security, deps
+│   │   ├── db/                 # engine, session
+│   │   ├── models/             # SQLAlchemy
+│   │   ├── schemas/            # Pydantic
+│   │   ├── crud/               # доступ к БД
+│   │   └── scripts/            # bootstrap
+│   ├── alembic/                # миграции
+│   ├── tests/                  # pytest
+│   └── Dockerfile
+├── frontend/                   # React
+│   ├── src/
+│   │   ├── api/                # axios-клиент
+│   │   ├── components/         # UI
+│   │   ├── hooks/              # React Query
+│   │   ├── pages/              # страницы
+│   │   ├── store/              # Zustand
+│   │   └── types/              # TS-типы
+│   ├── public/media/           # музыка, картинки
+│   ├── nginx.conf
+│   └── Dockerfile
+├── docs/images/                # скриншоты
+├── scripts/                    # setup-скрипты
+├── .github/workflows/          # CI/CD
+├── docker-compose.yml
+└── README.md
 ```
 
 ## Разработка
 
+### Миграции
 ```bash
-# Миграции
-alembic revision --autogenerate -m "add something"
+alembic revision --autogenerate -m "ваш текст"
 alembic upgrade head
 alembic downgrade -1
+```
 
-# Тесты
+### Тесты
+```bash
 pytest
 pytest -v
 pytest tests/test_api_auth.py
 ```
 
+### Линт
+```bash
+cd frontend
+npm run typecheck
+npm run lint
+```
+
 ## Переменные окружения
 
-Все настройки — в `backend/.env` (создаётся из `.env.example`).
+### `backend/.env`
 
 | Переменная | Обязательна | Описание |
-|---|---|---|
+|------------|:-----------:|----------|
 | `SECRET_KEY` | ✅ | Ключ JWT, ≥16 символов |
 | `DATABASE_URL` | ✅ | `postgresql+psycopg://...` |
-| `TEST_DATABASE_URL` | ❌ | Для тестов |
-| `ENVIRONMENT` | ❌ | `development` / `production` / `test` |
-| `DEBUG` | ❌ | SQL-логи |
-| `CORS_ORIGINS` | ❌ | Список origin'ов через запятую |
-| `ADMIN_USERNAME` | ❌ | По умолчанию `admin` |
-| `ADMIN_PASSWORD` | ❌ | Для bootstrap админа, ≥8 символов |
+| `TEST_DATABASE_URL` | — | Для тестов |
+| `ENVIRONMENT` | — | `development` / `production` / `test` |
+| `DEBUG` | — | SQL-логи |
+| `CORS_ORIGINS` | — | Список origin'ов через запятую |
+| `ADMIN_USERNAME` | — | По умолчанию `admin` |
+| `ADMIN_PASSWORD` | — | Для bootstrap админа, ≥8 символов |
+
+### `.env` (в корне, для docker-compose)
+
+| Переменная | Обязательна | Описание |
+|------------|:-----------:|----------|
+| `SECRET_KEY` | ✅ | Ключ JWT |
+| `ADMIN_USERNAME` | — | По умолчанию `admin` |
+| `ADMIN_PASSWORD` | — | Пароль админа |
+
+### `frontend/.env.local`
+
+| Переменная | Обязательна | Описание |
+|------------|:-----------:|----------|
+| `VITE_API_URL` | ✅ | `http://localhost:8000/api/v1` (в dev) |
+
+---
 
 ## CI/CD
 
