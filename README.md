@@ -1,15 +1,37 @@
 # Harbinger
 
-Простой таск-трекер: FastAPI + React + PostgreSQL, JWT, SQLAdmin, soft-delete.
+Harbinger - это такс-трекер с повозможность создания и отслеживания задач. Имеет встроеный аудиоплеер
 
 [![Backend CI](https://github.com/kivthe/Harbinger/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/kivthe/Harbinger/actions/workflows/backend-ci.yml)
+[![Frontend CI](https://github.com/kivthe/Harbinger/actions/workflows/frontend-ci.yml/badge.svg)](https://github.com/kivthe/Harbinger/actions/workflows/frontend-ci.yml)
+[![Publish Docker images](https://github.com/kivthe/Harbinger/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/kivthe/Harbinger/actions/workflows/docker-publish.yml)
 
 ## Стек
 
-- **Backend:** Python 3.12, FastAPI, SQLAlchemy 2.0, psycopg 3, Alembic, SQLAdmin
-- **Frontend:** React + TypeScript + Vite *(в разработке)*
-- **DB:** PostgreSQL 16
-- **CI/CD:** GitHub Actions, GHCR
+**Backend**
+- Python 3.12, FastAPI, Uvicorn
+- SQLAlchemy 2.0 (sync) + psycopg 3
+- Alembic (миграции)
+- Pydantic v2 + pydantic-settings
+- python-jose (JWT), pwdlib + bcrypt
+- SQLAdmin
+- pytest
+
+**Frontend**
+- React 18 + TypeScript
+- Vite, React Router v6
+- TanStack Query, Zustand
+- Tailwind CSS
+- `@dnd-kit/core` (drag&drop)
+- Axios
+
+**База данных** — PostgreSQL 16
+
+**Инфраструктура**
+- Docker + docker-compose
+- Nginx (внутри frontend-образа)
+- GitHub Actions (CI/CD)
+- GHCR (публикация образов)
 
 ## Быстрый старт
 
@@ -17,27 +39,45 @@
 
 - Python 3.12+
 - PostgreSQL 16
+- Node.js 20+
 - *(опционально)* Docker Desktop
-- *(для фронта)* Node.js 20+
 
 ### Установка
 
+### Docker:
+**Windows:**
+```cmd
+copy .env.example .env
+```
+**Linux**
+```bash
+cp .env.example .env
+```
+---
+```bash
+docker compose up --build
+```
+
 ### Windows (CMD):
+**Бэкенд**
 ```cmd
 net start postgresql-x64-16
 psql -U postgres -h localhost
-
+```
+```cmd
 CREATE USER taskuser WITH PASSWORD 'taskpass';
 CREATE DATABASE harbinger OWNER taskuser;
 CREATE DATABASE harbinger_test OWNER taskuser;
 \q
-
+```
+```cmd
 psql -U taskuser -h localhost -d harbinger -c "SELECT 1"
 
 cd backend
 python -m venv .venv
 .venv\Scripts\activate.bat
-
+```
+```cmd
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 
@@ -48,9 +88,7 @@ python -m app.scripts.create_admin
 
 uvicorn app.main:app --reload
 ```
-
 ---
-
 ### Linux / macOS:
 ```bash
 sudo systemctl start postgresql
