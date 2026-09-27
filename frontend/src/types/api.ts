@@ -66,3 +66,8 @@ export interface TaskFilters {
 export interface ClearTrashResponse {
   deleted: number;
 }
+
+export interface AdminUserUpdate {
+  role?: UserRole;
+  is_active?: boolean;
+}
