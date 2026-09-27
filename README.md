@@ -150,25 +150,25 @@ npm run dev
 | ![Login](docs/images/screenshot1.png) |
 | Главная страница |
 |---|
-| ![Login](docs/images/screenshot2.png) |
+| ![Main Page](docs/images/screenshot2.png) |
 | Создание задачи |
 |---|
-| ![Login](docs/images/screenshot3.png) |
+| ![Task Create](docs/images/screenshot3.png) |
 | Просмотр задач |
 |---|
-| ![Login](docs/images/screenshot4.png) |
+| ![Task View](docs/images/screenshot4.png) |
 | Редактирование задач |
 |---|
-| ![Login](docs/images/screenshot5.png) |
+| ![Task Edit](docs/images/screenshot5.png) |
 | Управление корзиной |
 |---|
-| ![Login](docs/images/screenshot6.png) |
+| ![Trashcan Manage](docs/images/screenshot6.png) |
 | Музыкальный проигрыватель |
 |---|
-| ![Login](docs/images/screenshot6.png) |
+| ![Jukebox](docs/images/screenshot6.png) |
 | Панель администратора |
 |---|
-| ![Login](docs/images/screenshot6.png) |
+| ![Admin Panel](docs/images/screenshot6.png) |
 
 ## API
 
