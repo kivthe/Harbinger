@@ -2,12 +2,12 @@ name: Frontend CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
     paths:
       - 'frontend/**'
       - '.github/workflows/frontend-ci.yml'
   pull_request:
-    branches: [main]
+    branches: [main, dev]
     paths:
       - 'frontend/**'
       - '.github/workflows/frontend-ci.yml'
@@ -15,9 +15,9 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Placeholder
-        run: echo "Frontend CI skeleton — full pipeline arrives at Этап 15"
