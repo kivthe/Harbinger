@@ -9,6 +9,20 @@
     },
     {
       "id": "ambient-2",
+      "title": "The Winding Valley - Darkest Dungeon II OST",
+      "artist": "Stuart Chatwood",
+      "file": "The Winding Valley.mp3",
+      "duration": 1498
+    },
+    {
+      "id": "ambient-3",
+      "title": "Altar of Hope (Act 3) - Darkest Dungeon II OST",
+      "artist": "Stuart Chatwood",
+      "file": "Altar of Hope (Act 3).mp3",
+      "duration": 191
+    },
+    {
+      "id": "ambient-4",
       "title": "The Butcher's Circus Combat - Darkest Dungeon OST",
       "artist": "Stuart Chatwood",
       "file": "The Butcher's Circus Combat.mp3",
@@ -18,35 +32,38 @@
 
 
     {
-      "id": "ambient-3",
+      "id": "ambient-5",
       "title": "A Story You Won't Believe - The Witcher 3: Wild Hunt OST",
       "artist": "CD Projekt RED",
       "file": "A Story You Won't Believe.mp3",
       "duration": 97
     },
     {
-      "id": "ambient-4",
+      "id": "ambient-6",
       "title": "Drink Up, There's More! - The Witcher 3: Wild Hunt OST",
       "artist": "CD Projekt RED",
       "file": "Drink Up, There's More!.mp3",
       "duration": 96
     },
     {
-      "id": "ambient-5",
+      "id": "ambient-7",
       "title": "The Nightingale - The Witcher 3: Wild Hunt OST",
       "artist": "CD Projekt RED",
       "file": "The Nightingale.mp3",
       "duration": 99
     },
     {
-      "id": "ambient-6",
+      "id": "ambient-8",
       "title": "The Vagabond - The Witcher 3: Wild Hunt OST",
       "artist": "CD Projekt RED",
       "file": "The Vagabond.mp3",
       "duration": 167
     },
+
+
+
     {
-      "id": "ambient-7",
+      "id": "ambient-9",
       "title": "Survivor Lobby - Dead By Daylight UST",
       "artist": "Behaviour Interactive",
       "file": "Survivor Lobby.mp3",
@@ -56,7 +73,7 @@
 
 
     {
-      "id": "ambient-8",
+      "id": "ambient-10",
       "title": "Welcome To Eugenes - Look Outside OST",
       "artist": "Eric Shumaker, Francis Coulombe",
       "file": "WelcomeToEugenes.ogg",
@@ -66,7 +83,7 @@
 
 
     {
-      "id": "ambient-9",
+      "id": "ambient-11",
       "title": "Luna",
       "artist": "Sun Project",
       "file": "Sun Project - Luna.mp3",
