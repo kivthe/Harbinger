@@ -18,3 +18,34 @@ body {
   background-color: #f9fafb;
   color: #111827;
 }
+
+/* Анимация «переката» цифры таймера */
+@keyframes digit-flip {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.digit-flip {
+  display: inline-block;
+  animation: digit-flip 300ms ease-out;
+}
+
+/* Пульсация для «просрочено» */
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
