@@ -143,9 +143,11 @@ npm run dev
 - SQLAdmin: http://localhost:8000/admin (Нужна предварительная авторизация через Swagger)
 - Health:   http://localhost:8000/health
 
+## Примеры работы
 
-
-
+| Вход |
+|---|
+| ![Login](docs/images/screenshot1.png) |
 ## API
 
 Префикс: `/api/v1`
