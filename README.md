@@ -1,6 +1,6 @@
 # Harbinger
 
-Harbinger - это такс-трекер с повозможность создания и отслеживания задач. Имеет встроеный аудиоплеер
+Harbinger - это такс трекер с возможностью создания и отслеживания задач. Имеет встроеный аудиоплеер.
 
 [![Backend CI](https://github.com/kivthe/Harbinger/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/kivthe/Harbinger/actions/workflows/backend-ci.yml)
 [![Frontend CI](https://github.com/kivthe/Harbinger/actions/workflows/frontend-ci.yml/badge.svg)](https://github.com/kivthe/Harbinger/actions/workflows/frontend-ci.yml)
@@ -165,10 +165,10 @@ npm run dev
 | ![Trashcan Manage](docs/images/screenshot6.png) |
 | Музыкальный проигрыватель |
 |---|
-| ![Jukebox](docs/images/screenshot6.png) |
+| ![Jukebox](docs/images/screenshot7.png) |
 | Панель администратора |
 |---|
-| ![Admin Panel](docs/images/screenshot6.png) |
+| ![Admin Panel](docs/images/screenshot8.png) |
 
 ## API
 
